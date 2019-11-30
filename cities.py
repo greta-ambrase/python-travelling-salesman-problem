@@ -1,3 +1,4 @@
+import math
 
 def read_cities(file_name):
     """
@@ -14,7 +15,7 @@ def read_cities(file_name):
     road_map = []
     for i in file.readlines():
         line = i.strip('\n')
-        tmp = line.split("\t")
+        tmp = line.split('\t')
         road_map.append(tuple((tmp[0], tmp[1], float(tmp[2]), float(tmp[3]))))
         
     return road_map
@@ -34,13 +35,38 @@ def print_cities(road_map):
         print('\n')
 
 
-# def compute_total_distance(road_map):
+def compute_total_distance(road_map):
 #     """
-#     Returns, as a floating point number, the sum of the distances of all 
+#     Returns, as a floating point intber, the sum of the distances of all 
 #     the connections in the `road_map`. Remember that it's a cycle, so that 
 #     (for example) in the initial `road_map`, Wyoming connects to Alabama...
 #     """
-#     return True
+
+    total_distance = 0
+
+    #calculate the Euclidian distance between cities road_map[n] and road_map[n+1]. This excludes the last city.
+    for i in range(0,len(road_map)-1):
+
+        x1 = road_map[i][2]
+        x2 = road_map[i][3]
+        y1 = road_map[i+1][2]
+        y2 = road_map[i+1][3]
+
+        distance = math.sqrt((x1-y1)**2 + (x2-y2)**2)
+        total_distance+=distance
+
+    #calculate the distance between the last city and the first.
+    x1 = road_map[-1][2]
+    x2 = road_map[-1][3]
+    y1 = road_map[0][2]
+    y2 = road_map[0][3]
+
+    distance = math.sqrt((x1-y1)**2 + (x2-y2)**2)
+    total_distance+=distance
+
+    return total_distance
+    
+
 
 # def swap_cities(road_map, index1, index2):
 #     """
@@ -88,8 +114,11 @@ def print_cities(road_map):
 #     return True
 
 if __name__ == "__main__": #keep this in
-    road_map=read_cities('city-data.txt')
-    print_cities(road_map)
+    #road_map=read_cities('city-data.txt')
+    road_map = [("Kentucky", "Frankfort", 38.197274, -84.86311),
+                ("Delaware", "Dover", 39.161921, -75.526755),
+                ("Minnesota", "Saint Paul", 44.95, -93.094)]
+    print(compute_total_distance(road_map))
 
 #     main()
 
