@@ -26,33 +26,47 @@ def test_compute_total_distance_two_cities():
            pytest.approx(9.386+9.386, 0.01)
 
 
+def test_compute_total_distance_float():
+    """
+    Tests if the returned value is float.
+    """
+    road_map1 = [("Kentucky", "Frankfort", 38.197274, -84.86311),
+                ("Delaware", "Dover", 39.161921, -75.526755),
+                ("Minnesota", "Saint Paul", 44.95, -93.094)]
+    assert type(compute_total_distance(road_map1)) == float
 
 
-# def test_compute_total_distance_float():
-#     """
-#     Tests if the returned value is float.
-#     """
-#     road_map1 = [("Kentucky", "Frankfort", 38.197274, -84.86311),
-#                 ("Delaware", "Dover", 39.161921, -75.526755),
-#                 ("Minnesota", "Saint Paul", 44.95, -93.094)]
-#     assert compute_total_distance(road_map1) == float
+def test_swap_cities_tuple():
+    """Tests if the returned value is a tuple.
+    Take the city at location `index` in the `road_map`, and the 
+    city at location `index2`, swap their positions in the `road_map`, 
+    compute the new total distance, and return the tuple 
 
+        (new_road_map, new_total_distance)
 
-# def test_swap_cities_tuple():
-#     """Tests if the returned value is a tuple.
-#     Take the city at location `index` in the `road_map`, and the 
-#     city at location `index2`, swap their positions in the `road_map`, 
-#     compute the new total distance, and return the tuple 
+    Allow for the possibility that `index1=index2`,
+    and handle this case correctly.
+    """
+    road_map1 = [("Kentucky", "Frankfort", 38.197274, -84.86311),
+                ("Delaware", "Dover", 39.161921, -75.526755),
+                ("Minnesota", "Saint Paul", 44.95, -93.094)]
+    assert type(swap_cities(road_map1, 1, 2)) == tuple
 
-#         (new_road_map, new_total_distance)
+def test_swap_cities_tuple_same_index():
+    """Tests if the returned value is a tuple.
+    Take the city at location `index` in the `road_map`, and the 
+    city at location `index2`, swap their positions in the `road_map`, 
+    compute the new total distance, and return the tuple 
 
-#     Allow for the possibility that `index1=index2`,
-#     and handle this case correctly.
-#     """
-#     road_map1 = [("Kentucky", "Frankfort", 38.197274, -84.86311),
-#                 ("Delaware", "Dover", 39.161921, -75.526755),
-#                 ("Minnesota", "Saint Paul", 44.95, -93.094)]
-#     assert swap_cities(road_map1, 1, 2) == tuple
+        (new_road_map, new_total_distance)
+
+    Allow for the possibility that `index1=index2`,
+    and handle this case correctly.
+    """
+    road_map1 = [("Kentucky", "Frankfort", 38.197274, -84.86311),
+                ("Delaware", "Dover", 39.161921, -75.526755),
+                ("Minnesota", "Saint Paul", 44.95, -93.094)]
+    assert swap_cities(road_map1, 1, 1)
 
 
 # def test_shift_cities_different():

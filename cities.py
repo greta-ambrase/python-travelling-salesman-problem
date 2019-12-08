@@ -68,18 +68,25 @@ def compute_total_distance(road_map):
     
 
 
-# def swap_cities(road_map, index1, index2):
-#     """
-#     Take the city at location `index` in the `road_map`, and the 
-#     city at location `index2`, swap their positions in the `road_map`, 
-#     compute the new total distance, and return the tuple 
+def swap_cities(road_map, index1, index2):
+    """
+    Take the city at location `index` in the `road_map`, and the 
+    city at location `index2`, swap their positions in the `road_map`, 
+    compute the new total distance, and return the tuple 
 
-#         (new_road_map, new_total_distance)
+        (new_road_map, new_total_distance)
 
-#     Allow for the possibility that `index1=index2`,
-#     and handle this case correctly.
-#     """
-#     return True
+    Allow for the possibility that `index1=index2`,
+    and handle this case correctly.
+    """
+    x1 = road_map[index1]
+    x2 = road_map[index2]
+
+    road_map[index1] = x2
+    road_map[index2] = x1
+
+    return (road_map,compute_total_distance(road_map))
+
 
 # def shift_cities(road_map):
 #     """
@@ -117,8 +124,11 @@ if __name__ == "__main__": #keep this in
     #road_map=read_cities('city-data.txt')
     road_map = [("Kentucky", "Frankfort", 38.197274, -84.86311),
                 ("Delaware", "Dover", 39.161921, -75.526755),
-                ("Minnesota", "Saint Paul", 44.95, -93.094)]
+                ("Minnesota", "Saint Paul", 44.95, -93.094),
+                ("Massachusetts", "Boston",	42.2352,-71.0275)]
+    print(print_cities(road_map))
     print(compute_total_distance(road_map))
+    print(swap_cities(road_map, 0, 1))
 
 #     main()
 
