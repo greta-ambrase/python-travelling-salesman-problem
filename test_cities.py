@@ -68,21 +68,81 @@ def test_swap_cities_tuple_same_index():
                 ("Minnesota", "Saint Paul", 44.95, -93.094)]
     assert swap_cities(road_map1, 1, 1)
 
+def test_swap_cities_tuple_len():
+    """Tests if the returned value is a tuple.
+    Take the city at location `index` in the `road_map`, and the 
+    city at location `index2`, swap their positions in the `road_map`, 
+    compute the new total distance, and return the tuple 
 
-# def test_shift_cities_different():
-#     """
-#     Tests that the first road map is different from the shifted one.
-#     For every index i in the `road_map`, the city at the position i moves
-#     to the position i+1. The city at the last position moves to the position
-#     0. Return the new road map. 
-#     """
-#     road_map1 = [("Kentucky", "Frankfort", 38.197274, -84.86311),
-#                 ("Delaware", "Dover", 39.161921, -75.526755),
-#                 ("Minnesota", "Saint Paul", 44.95, -93.094)]
-#     if len(road_map1)>1:
-#     	assert road_map1 != shift_cities(road_map1)
+        (new_road_map, new_total_distance)
 
-#     else:
-#     	assert shift_cities(road_map1) == road_map1
+    Allow for the possibility that `index1=index2`,
+    and handle this case correctly.
+    """
+    road_map1 = [("Kentucky", "Frankfort", 38.197274, -84.86311),
+                ("Delaware", "Dover", 39.161921, -75.526755),
+                ("Minnesota", "Saint Paul", 44.95, -93.094)]
+    assert len(road_map1) == len(swap_cities(road_map1, 1, 1)[0])
+
+
+def test_shift_cities_different():
+    """
+    Tests that the first road map is different from the shifted one.
+    For every index i in the `road_map`, the city at the position i moves
+    to the position i+1. The city at the last position moves to the position
+    0. Return the new road map. 
+    """
+    road_map1 = [("Kentucky", "Frankfort", 38.197274, -84.86311),
+                ("Delaware", "Dover", 39.161921, -75.526755),
+                ("Minnesota", "Saint Paul", 44.95, -93.094),
+                ("Massachusetts", "Boston",	42.2352,-71.0275)]
+    assert road_map1 != shift_cities(road_map1)
+
+def test_shift_cities_different_new_position():
+    """
+    Tests that the first road map is different from the shifted one.
+    For every index i in the `road_map`, the city at the position i moves
+    to the position i+1. The city at the last position moves to the position
+    0. Return the new road map. 
+    """
+    road_map1 = [("Kentucky", "Frankfort", 38.197274, -84.86311),
+                ("Delaware", "Dover", 39.161921, -75.526755),
+                ("Minnesota", "Saint Paul", 44.95, -93.094),
+                ("Massachusetts", "Boston",	42.2352,-71.0275)]
+    assert road_map1[0] == shift_cities(road_map1)[1]
+
+def test_shift_cities_different_last_position():
+    """
+    Tests that the first road map is different from the shifted one.
+    For every index i in the `road_map`, the city at the position i moves
+    to the position i+1. The city at the last position moves to the position
+    0. Return the new road map. 
+    """
+    road_map1 = [("Kentucky", "Frankfort", 38.197274, -84.86311),
+                ("Delaware", "Dover", 39.161921, -75.526755),
+                ("Minnesota", "Saint Paul", 44.95, -93.094),
+                ("Massachusetts", "Boston",	42.2352,-71.0275)]
+    assert road_map1[-1] == shift_cities(road_map1)[0]
+
+
+def test_shift_cities_different_length():
+    """
+    Tests that the first road map is different from the shifted one.
+    For every index i in the `road_map`, the city at the position i moves
+    to the position i+1. The city at the last position moves to the position
+    0. Return the new road map. 
+    """
+    road_map1 = [("Kentucky", "Frankfort", 38.197274, -84.86311),
+                ("Delaware", "Dover", 39.161921, -75.526755),
+                ("Minnesota", "Saint Paul", 44.95, -93.094),
+                ("Massachusetts", "Boston",	42.2352,-71.0275)]
+    assert len(road_map1) == len(shift_cities(road_map1))
+
+
+
+def test_shift_cities_different_one_city():
+	road_map1 = [("Kentucky", "Frankfort", 38.197274, -84.86311)]
+	assert shift_cities(road_map1) == road_map1
+
 
 

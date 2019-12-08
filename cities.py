@@ -88,13 +88,28 @@ def swap_cities(road_map, index1, index2):
     return (road_map,compute_total_distance(road_map))
 
 
-# def shift_cities(road_map):
-#     """
-#     For every index i in the `road_map`, the city at the position i moves
-#     to the position i+1. The city at the last position moves to the position
-#     0. Return the new road map. 
-#     """
-#     return True
+def shift_cities(road_map):
+    """
+    For every index i in the `road_map`, the city at the position i moves
+    to the position i+1. The city at the last position moves to the position
+    0. Return the new road map. 
+    """
+    if len(road_map) == 1:
+    	return road_map
+
+    else:
+	    shifted_road_map = []
+
+	    x_first = road_map[0]
+	    x_last = road_map[-1]
+
+	    shifted_road_map.append(x_last)
+	    shifted_road_map.append(x_first)
+
+	    for i in range(1, len(road_map)-1):
+	    	shifted_road_map.append(road_map[i])
+
+	    return shifted_road_map
 
 # def find_best_cycle(road_map):
 #     """
@@ -121,14 +136,14 @@ def swap_cities(road_map, index1, index2):
 #     return True
 
 if __name__ == "__main__": #keep this in
-    #road_map=read_cities('city-data.txt')
+    # road_map=read_cities('city-data.txt')
     road_map = [("Kentucky", "Frankfort", 38.197274, -84.86311),
                 ("Delaware", "Dover", 39.161921, -75.526755),
                 ("Minnesota", "Saint Paul", 44.95, -93.094),
                 ("Massachusetts", "Boston",	42.2352,-71.0275)]
-    print(print_cities(road_map))
-    print(compute_total_distance(road_map))
-    print(swap_cities(road_map, 0, 1))
+    print(road_map)
+    print_cities(road_map)
+
 
 #     main()
 
