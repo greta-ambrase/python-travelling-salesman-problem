@@ -1,4 +1,7 @@
 import math
+import copy
+import random
+import matplotlib.pyplot as plt
 
 def read_cities(file_name):
     """
@@ -29,7 +32,7 @@ def print_cities(road_map):
     for i in road_map:
         for j in i:
             if type(j) == float:
-                print(f'{j:15.2f}', end =', ')
+                print(f'{j:0.2f}', end =', ')
             else:
                 print(j, end = ', ')
         print('\n')
@@ -111,39 +114,82 @@ def shift_cities(road_map):
 
 	    return shifted_road_map
 
-# def find_best_cycle(road_map):
-#     """
-#     Using a combination of `swap_cities` and `shift_cities`, 
-#     try `10000` swaps/shifts, and each time keep the best cycle found so far. 
-#     After `10000` swaps/shifts, return the best cycle found so far.
-#     Use randomly generated indices for swapping.
-#     """
-#     return True
+def find_best_cycle(road_map):
+    """
+    Using a combination of `swap_cities` and `shift_cities`, 
+    try `10000` swaps/shifts, and each time keep the best cycle found so far. 
+    After `10000` swaps/shifts, return the best cycle found so far.
+    Use randomly generated indices for swapping.
+    """
+    best_distance = compute_total_distance(road_map)
+    best_map = road_map
+    n = 10000
+    random.seed(10000)
 
-# def print_map(road_map):
-#     """
-#     Prints, in an easily understandable format, the cities and 
-#     their connections, along with the cost for each connection 
-#     and the total cost.
-#     """
-#     return True
+    for i in range(0,n):
+    	new_map = copy.deepcopy(road_map)
 
-# def main():
-#     """
-#     Reads in, and prints out, the city data, then creates the "best"
-#     cycle and prints it out.
-#     """
-#     return True
+    	new_map = shift_cities(new_map)
 
-if __name__ == "__main__": #keep this in
-    # road_map=read_cities('city-data.txt')
-    road_map = [("Kentucky", "Frankfort", 38.197274, -84.86311),
-                ("Delaware", "Dover", 39.161921, -75.526755),
-                ("Minnesota", "Saint Paul", 44.95, -93.094),
-                ("Massachusetts", "Boston",	42.2352,-71.0275)]
-    print(road_map)
+    	index1 = random.randint(0,(len(road_map)-1))
+    	index2 = random.randint(0,(len(road_map)-1))
+    	new_map = swap_cities(new_map, index1, index2)[0]
+
+    	new_distance = compute_total_distance(new_map)
+
+    	if new_distance < best_distance:
+    		best_distance = new_distance
+    		best_map = new_map
+
+    return best_map
+
+
+def print_map(road_map):
+	"""
+	Prints, in an easily understandable format, the cities and 
+	their connections, along with the cost for each connection 
+	and the total cost.
+	matplotlib
+	"""
+	d = []
+
+	for i in range(0,len(road_map)-1):
+		cities = str(road_map[i][0]) + ' ' + str(road_map[i][1]) +' and ' + str(road_map[i+1][0]) + ' ' + str(road_map[i+1][1]) + ': '
+		distance = math.sqrt((road_map[i][2]-road_map[i+1][2])**2 + (road_map[i][3]-road_map[i+1][3])**2)
+		d.append((cities, f'{distance:0.2f}'))
+
+	distance = math.sqrt((road_map[-1][2]-road_map[0][2])**2 + (road_map[-1][3]-road_map[0][3])**2)
+	cities = str(road_map[-1][0]) + ' ' + str(road_map[-1][1]) +' and ' + str(road_map[0][0]) + ' ' + str(road_map[0][1]) + ': '
+	d.append((cities, f'{distance:0.2f}'))
+
+	for i in d:
+		print(i[0], i[1])
+
+	print('Total distance: ' + str(compute_total_distance(road_map)))
+
+
+	#line, = plt.plot([i[2] for i in road_map], [i[3] for i in road_map], 'go-')
+	plt.plot([i[2] for i in road_map], [i[3] for i in road_map], 'go-')
+	#plt.text([[i[2] for i in road_map], [i[3] for i in road_map]], d, fontsize =12)
+
+	plt.show()
+
+
+def main():
+    """
+    Reads in, and prints out, the city data, then creates the "best"
+    cycle and prints it out.
+    """
+    road_map=read_cities('city-data.txt')
     print_cities(road_map)
 
+    best_map = find_best_cycle(road_map)
 
-#     main()
+    print_map(best_map)
+
+
+
+
+if __name__ == "__main__": #keep this in
+	main()
 
