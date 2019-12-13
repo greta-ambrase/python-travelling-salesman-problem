@@ -188,8 +188,6 @@ def main():
     print_map(best_map)
 
 
-
-
 if __name__ == "__main__": #keep this in
 	main()
 
