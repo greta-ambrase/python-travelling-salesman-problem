@@ -127,7 +127,7 @@ def find_best_cycle(road_map):
     random.seed(10000)
 
     for i in range(0,n):
-    	new_map = copy.deepcopy(road_map)
+    	new_map = copy.deepcopy(best_map)
 
     	new_map = shift_cities(new_map)
 
