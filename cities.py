@@ -169,7 +169,7 @@ def print_map(road_map):
 
 
 	#line, = plt.plot([i[2] for i in road_map], [i[3] for i in road_map], 'go-')
-	plt.plot([i[2] for i in road_map], [i[3] for i in road_map], 'go-')
+	plt.plot([i[3] for i in road_map], [i[2] for i in road_map], 'go-')
 	#plt.text([[i[2] for i in road_map], [i[3] for i in road_map]], d, fontsize =12)
 
 	plt.show()
